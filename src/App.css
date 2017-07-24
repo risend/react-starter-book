@@ -1,5 +1,10 @@
+/* fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 html, body, .root {
   height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 body {
   line-height: 1.5;
@@ -11,12 +16,12 @@ body, .app {
 /* main page */
 
 .list-books-title {
-  padding: 10px 0;
-  background: #2e7c31;
+  padding: 20px 0;
+  background: #E16138;
   text-align: center;
 }
 .list-books-title h1 {
-  font-weight: 400;
+  font-weight: 200;
   margin: 0;
   color: white;
 }
@@ -53,13 +58,22 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #83B375;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   font-size: 0;
+}
+
+a:visited, a:link, a:active {
+  color: #E16138;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #83B375;
 }
 
 /* search page */
@@ -127,10 +141,20 @@ body, .app {
   font-size: 0.8em;
 }
 .book-title {
+  font-weight: 600;
   margin-top: 10px;
 }
 .book-authors {
   color: #999;
+}
+.book-message {
+  font-size: .8em;
+  color: #FFF;
+  background-color: #27A3BA;
+  padding: 2px 6px;
+}
+.book-message:empty {
+  display: none;
 }
 
 .book-top {
@@ -147,7 +171,7 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #83B375;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -171,4 +195,12 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+/* book ratings */
+
+.book-rating span {
+  font-size: .9em;
+  color: #666;
+  padding-left: 4px;
 }
