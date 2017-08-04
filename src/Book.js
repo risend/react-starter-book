@@ -3,10 +3,24 @@ import PropTypes from 'prop-types'
 import Rating from 'react-rating-system'
 import Star from './icons/star.png'
 
-export default class BookList extends React.Component {
+export default class Book extends React.Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired,
-    shelf: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    shelf: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    canonicalVolumeLink: PropTypes.string.isRequired,
+    averageRating: PropTypes.number,
+    ratingsCount: PropTypes.number,
+    imageLinks: PropTypes.object,
+    authors: PropTypes.array
+  }
+
+  static defaultProps = {
+    authors: ['N/A'],
+    averageRating: null,
+    ratingsCount: null,
+    imageLinks: null
   }
 
   constructor(props) {
@@ -15,8 +29,6 @@ export default class BookList extends React.Component {
       shelf: this.props.shelf,
       message: ''
     }
-
-    console.log(this.props)
 
     this.onChangeHandler = this.onChangeHandler.bind(this)
   }
@@ -54,7 +66,9 @@ export default class BookList extends React.Component {
         <div className="book">
           <div className="book-top">
             <a href={this.props.canonicalVolumeLink} title={this.props.title}>
-              <div className="book-cover" title={this.props.title} style={{ width: 128, height: 188, backgroundImage: `url("${this.props.imageLinks.thumbnail}")` }}></div>
+              {this.props.imageLinks &&
+                <div className="book-cover" title={this.props.title} style={{ width: 128, height: 188, backgroundImage: `url("${this.props.imageLinks.thumbnail}")` }}></div>
+              }
             </a>
             <div className="book-shelf-changer">
               <select onChange={this.onChangeHandler} defaultValue={this.state.shelf}>

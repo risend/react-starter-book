@@ -1,32 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
-import BookList from './BookList'
+import SearchList from './SearchList'
+import SearchBox from './SearchBox'
 
 export default class Search extends React.Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
-    onSelect: PropTypes.func.isRequired
+    onSelectHandler: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      query: '',
       results: []
     }
 
-    this.updateQuery = this.updateQuery.bind(this)
+    this.searchQuery = this.searchQuery.bind(this)
   }
 
-  updateQuery(e) {
-    this.setState({query: e.target.value}, this.searchQuery())
-  }
-
-  searchQuery() {
-    if (this.state.query.length > 0) {
-      BooksAPI.search(this.state.query, 20).then((res) => {
+  searchQuery(query) {
+    if (query.length > 0) {
+      BooksAPI.search(query, 20).then((res) => {
         if (!res.error) {
           res.forEach((book) => {
             book.shelf = 'none'
@@ -38,41 +33,28 @@ export default class Search extends React.Component {
               }
             })
           })
-          this.setState({results: res})
+          this.setState({ results: res })
+        } else {
+          this.setState({ results: null })
         }
       })
+    } else {
+      this.setState({ results: null })
     }
-  }
-
-  compareShelf(searchId) {
-    this.props.books.forEach((book) => {
-      book.shelf = (book.id === searchId) ? book.shelf : "none"
-    })
   }
 
   render () {
     return (
       <div className="search-books">
-        <div className="search-books-bar">
-          <Link to="/" className="close-search">Close</Link>
-          <div className="search-books-input-wrapper">
-            <input type="text" onChange={this.updateQuery} value={this.state.query} placeholder="Search by title or author"/>
-          </div>
-        </div>
-        <div className="search-books-results">
-          {/* TODO:
-              1. Remove itself or provide feedback to where it was moved to
-          */}
-          <ol className="books-grid">
-            {this.state.results && this.state.results.map((book) => (
-              <BookList
-                {...book}
-                key={book.id}
-                onSelect={this.props.onSelectHandler}
-              />
-            ))}
-          </ol>
-        </div>
+        <SearchBox
+          onChangeHandler={this.searchQuery}
+        />
+        {this.state.results &&
+          <SearchList
+            results={this.state.results}
+            onSelectHandler={this.props.onSelectHandler}
+          />
+        }
       </div>
     )
   }

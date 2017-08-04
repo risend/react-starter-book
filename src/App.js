@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookList from './BookList'
+import Book from './Book'
 import Search from './Search'
 
 class BooksApp extends React.Component {
@@ -55,8 +55,15 @@ class BooksApp extends React.Component {
                       {this.state.books
                         .filter((book) => book.shelf === 'currentlyReading' )
                         .map((book) => (
-                          <BookList
-                            {...book}
+                          <Book
+                            id={book.id}
+                            title={book.title}
+                            authors={book.authors}
+                            averageRating={book.averageRating}
+                            ratingsCount={book.ratingsCount}
+                            canonicalVolumeLink={book.canonicalVolumeLink}
+                            imageLinks={book.imageLinks}
+                            shelf={book.shelf}
                             key={book.id}
                             onSelect={this.onSelectHandler}
                           />
@@ -71,8 +78,15 @@ class BooksApp extends React.Component {
                       {this.state.books
                         .filter((book) => book.shelf === 'wantToRead' )
                         .map((book) => (
-                          <BookList
-                            {...book}
+                          <Book
+                            id={book.id}
+                            title={book.title}
+                            authors={book.authors}
+                            averageRating={book.averageRating}
+                            ratingsCount={book.ratingsCount}
+                            canonicalVolumeLink={book.canonicalVolumeLink}
+                            imageLinks={book.imageLinks}
+                            shelf={book.shelf}
                             key={book.id}
                             onSelect={this.onSelectHandler}
                           />
@@ -87,8 +101,15 @@ class BooksApp extends React.Component {
                       {this.state.books
                         .filter((book) => book.shelf === 'read' )
                         .map((book) => (
-                          <BookList
-                            {...book}
+                          <Book
+                            id={book.id}
+                            title={book.title}
+                            authors={book.authors}
+                            averageRating={book.averageRating}
+                            ratingsCount={book.ratingsCount}
+                            canonicalVolumeLink={book.canonicalVolumeLink}
+                            imageLinks={book.imageLinks}
+                            shelf={book.shelf}
                             key={book.id}
                             onSelect={this.onSelectHandler}
                           />
